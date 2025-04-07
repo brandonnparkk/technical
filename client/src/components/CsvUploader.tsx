@@ -3,7 +3,7 @@ import { Button, Box, Typography, CircularProgress } from '@mui/material';
 import { Upload as UploadIcon } from '@mui/icons-material';
 import { uploadCsv } from '../api/api';
 
-const CsvUploader: React.FC = () => {
+const CsvUploader: React.FC<{ onUploadSuccess: () => void }> = ({ onUploadSuccess }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -18,6 +18,7 @@ const CsvUploader: React.FC = () => {
       const result = await uploadCsv(file);
       console.log(result);
       setMessage(`Successfully uploaded`);
+      onUploadSuccess();
     } catch (error) {
       setMessage('Upload failed. Please try again.');
       console.error(error);
